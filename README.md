@@ -1,4 +1,4 @@
-# automation-test
+# automation-test  -- .Net --
 
 ## Foreach(): Do somthing woth each element:
 
@@ -27,3 +27,17 @@ for (let i = 0; i < count; ++i)
 
 </br>
 </br>
+
+### To record the steps in url, and convert it to playwright code:
+
+```cmd 
+pwsh .\bin\Debug\net6.0\playwright.ps1 codegen "enter here the url"
+```
+
+### To record the steps in a phone device (.net) :
+
+```cmd
+pwsh playwright codegen --device="iPhone 11" "enter here the url"
+```
+
+[for more example:](https://docs.specflow.org/en/latest/Examples.html)
