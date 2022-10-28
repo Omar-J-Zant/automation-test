@@ -1,5 +1,163 @@
 # automation-test  -- .Net --
 
+
+## Gherkin-Syntax -Given - When - Then-
+
+1- Given:
+
+> Given steps are used to describe the initial context of the system – the scene of the scenario. It is typically something that happened in the past.
+
+
+```feature
+Feature: Calculator
+ 
+Calculator for adding two numbers
+ 
+Scenario: Add two numbers
+Add two numbers with the calculator
+Given I have entered 50 into the calculator
+
+```
+
+</br>
+</br>
+
+2- And :
+> And-keyword is used to extend to your steps.
+ Helps you to elaborate your feature-file further.
+
+```feature
+Feature: Calculator
+ 
+Calculator for adding two numbers
+ 
+Scenario: Add two numbers
+Add two numbers with the calculator
+Given I have entered 50 into the calculator
+And I have entered 70 into the calculator
+
+```
+
+</br>
+</br>
+
+3- When:
+
+> When keyword defines the test action which will be executed.
+
+ By test action we mean the user input action.
+
+```feature
+Feature: Calculator
+ 
+Calculator for adding two numbers
+ 
+Scenario: Add two numbers
+Add two numbers with the calculator
+Given I have entered 50 into the calculator
+And I have entered 70 into the calculator
+ 
+When I press add
+```
+
+</br>
+</br>
+
+4- Then :
+
+> Then keyword defines the outcome of previous steps.
+
+```feature
+Feature: Calculator
+ 
+Calculator for adding two numbers
+ 
+Scenario: Add two numbers
+Add two numbers with the calculator
+Given I have entered 50 into the calculator
+And I have entered 70 into the calculator
+ 
+When I press add
+Then the result should be 120 on the screen
+```
+</br>
+</br>
+
+
+5- Tags:
+> You can place tags above Feature to group related features, independent of your file and directory structure.
+
+ Furthermore you can filter tags within your CI/CD-pipeline.
+
+```feature 
+Feature: Calculator
+ 
+Calculator for adding two numbers
+ 
+@mytag
+Scenario: Add two numbers
+Add two numbers with the calculator
+Given I have entered 50 into the calculator
+And I have entered 70 into the calculator
+ 
+When I press add
+Then the result should be 120 on the screen
+
+```
+
+</br>
+</br>
+
+6- Delimited parameters :
+
+> Delimited parameters <> are used as references which are referred to in the example tables. SpecFlow will automatically replace these parameters when executing  tests.
+
+```feature
+Feature: Calculator
+ 
+Calculator for adding two numbers
+ 
+@mytag
+Scenario: Add two numbers
+Add two numbers with the calculator
+Given I have entered <First> into the calculator
+And I have entered <Second> into the calculator
+ 
+When I press add
+Then the result should be <Result> on the screen
+```
+
+</br>
+</br>
+
+7- Data tables:
+
+> Data Tables are handy for passing a list of values to a step definition. A useful tool in complex Gherkin examples.
+
+```feature
+Feature: Calculator
+ 
+Calculator for adding two numbers
+ 
+@mytag
+Scenario: Add two numbers
+Add two numbers with the calculator
+Given I have entered <First> into the calculator
+And I have entered <Second> into the calculator
+ 
+When I press add
+Then the result should be <Result> on the screen
+Examples:
+| First | Second | Result |
+| 50 | 70 | 120 |
+| 30 | 40 | 70 |
+| 60 | 30 | 90 |
+```
+
+</br>
+</br>
+
+
 ## Foreach(): Do somthing woth each element:
 
 ```c#
