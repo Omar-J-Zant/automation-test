@@ -139,6 +139,97 @@ namespace Specs.Steps
 
 ```
 
+### Another Example with outline in Scenario :
+
+--- feature file 
+
+```feature 
+@Calculator
+Feature: Calculator
+![Calculator](https://specflow.org/wp-content/uploads/2020/09/calculator.png)
+Simple calculator for adding **two** numbers
+
+Link to a feature: [Calculator](CalculatorSelenium.Specs/Features/Calculator.feature)
+***Further read***: **[Learn more about how to generate Living Documentation](https://docs.specflow.org/projects/specflow-livingdoc/en/latest/LivingDocGenerator/Generating-Documentation.html)**
+
+Scenario: Add two numbers
+	Given the first number is 50
+	And the second number is 70
+	When the two numbers are added
+	Then the result should be 120
+
+
+Scenario Outline: Add two numbers permutations
+	Given the first number is <First number>
+	And the second number is <Second number>
+	When the two numbers are added
+	Then the result should be <Expected result>
+
+Examples:
+	| First number | Second number | Expected result |
+	| 0            | 0             | 0               |
+	| -1           | 10            | 9               |
+	| 6            | 9             | 15              |
+
+```
+
+</br>
+</br>
+
+--- step.cs file
+
+```c#
+using CalculatorSelenium.Specs.Drivers;
+using CalculatorSelenium.Specs.PageObjects;
+using FluentAssertions;
+using TechTalk.SpecFlow;
+
+namespace CalculatorSelenium.Specs.Steps
+{
+    [Binding]
+    public sealed class CalculatorStepDefinitions
+    {
+        //Page Object for Calculator
+        private readonly CalculatorPageObject _calculatorPageObject;
+
+        public CalculatorStepDefinitions(BrowserDriver browserDriver)
+        {
+            _calculatorPageObject = new CalculatorPageObject(browserDriver.Current);
+        }
+
+        [Given("the first number is (.*)")]
+        public void GivenTheFirstNumberIs(int number)
+        {
+            //delegate to Page Object
+            _calculatorPageObject.EnterFirstNumber(number.ToString());
+        }
+
+        [Given("the second number is (.*)")]
+        public void GivenTheSecondNumberIs(int number)
+        {
+            //delegate to Page Object
+            _calculatorPageObject.EnterSecondNumber(number.ToString());
+        }
+
+        [When("the two numbers are added")]
+        public void WhenTheTwoNumbersAreAdded()
+        {
+            //delegate to Page Object
+            _calculatorPageObject.ClickAdd();
+        }
+
+        [Then("the result should be (.*)")]
+        public void ThenTheResultShouldBe(int expectedResult)
+        {
+            //delegate to Page Object
+            var actualResult = _calculatorPageObject.WaitForNonEmptyResult();
+
+            actualResult.Should().Be(expectedResult.ToString());
+        }
+    }
+}
+```
+
 </br>
 </br>
 
