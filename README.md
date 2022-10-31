@@ -461,6 +461,8 @@ namespace Specs.Steps
 ```feature
 Feature: TestingCardDialog
 
+Created By Omar J Zant
+
 #add card to  the user click the title of any cardems
 Scenario: add card to task item
 	Given the logged out user opened the login page
