@@ -456,7 +456,7 @@ namespace Specs.Steps
 
 ### A Long Example :
 
---- Feature file:
+--- Feature --TestingCardDialog-- file:
 
 ```feature
 Feature: TestingCardDialog
@@ -631,6 +631,77 @@ Scenario: test link description if run in dialog
 	And click on this link
 	Then the page was redirect to the link entered
 
+```
+
+</br>
+</br>
+
+--- feature --Filters-- file:
+
+```feature
+
+Feature: Filters
+
+Created by Noura Hlayhel
+
+
+@types
+Scenario Outline: Filter By types
+	Given the logged out user opened the login page
+	When the user chooses to filter items and clicks the filter button
+	And the user chooses to filter by a certain type <typeOfItem>
+	Then only this type will show up
+Examples: 
+| typeOfItem  |
+| Task        |
+| Bug         |
+| Impediment  |
+| Development |
+| GUI Design  |
+
+
+@filters
+Scenario Outline: Filter By Assignee
+	Given the logged out user opened the login page
+	When the user chooses to filter items and clicks the filter by assignee
+	And the user chooses checks <assignee_name>
+	Then only items assigned to the user should be shown
+Examples: 
+| assignee_name |
+| Sirine Osman  |
+| Hala Taleb    |
+
+
+@filterbytag
+Scenario Outline: Filter By Tag
+	Given the logged out user opened the login page
+	When the user chooses to filter items and clicks the filter by tag
+	And the user checks whatever <tag> he wants
+	Then only items related to this tag should be shown
+Examples: 
+| tag           |
+| High Priority |
+| Project       |
+
+
+@morethanoneassignee
+Scenario: Filter By More than one Assignee
+	Given the logged out user opened the login page
+	When the user chooses to filter items and clicks the filter by assignee
+	And the user chooses checks Sirine Osman
+	And the user chooses checks Hala Taleb
+	Then only items assigned to the chosen assignees should be shown
+
+
+@multi-filtering
+Scenario: User filter the Items list by the Assignee and the Tags (Or any combination of filters)
+	Given the logged out user opened the login page
+	When the user chooses to filter items and clicks the filter by assignee
+	And the user chooses checks Sirine Osman
+	And the user chooses to filter items and clicks the filter button
+	And the user chooses to filter by a certain type Development
+	Then only items assigned to the user should be shown
+	And only this type will show up
 ```
 
 </br>
