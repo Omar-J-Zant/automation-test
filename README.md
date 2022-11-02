@@ -186,6 +186,13 @@ for (let i = 0; i < count; ++i)
 </br>
 </br>
 
+### To run other browser test drom CLI:
+
+```cmd
+pwsh .\bin\Debug\net6.0\playwright.ps1  codegen  -b webkit "url"
+```
+
+
 ### To record the steps in url, and convert it to playwright code:
 
 ```cmd 
