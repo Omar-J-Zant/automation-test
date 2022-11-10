@@ -180,6 +180,48 @@ for (let i = 0; i < count; ++i)
 </br>
 
 ### For UI view testing in Playwright:
+
+
+> You want to add some code to Driver.cs file : 
+
+```c#
+
+this.browser = await this.playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+{
+    Headless = false, // if true the ui not shown.
+    SlowMo = 200,   // speed of step.
+});
+
+
+```
+
+***
+
+</br>
+</br>
+
+> To make condition on UI when cmd of linux is run :
+
+```c#
+  if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                this.browser = await this.playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+                {
+                    Headless = false,
+                    SlowMo = 200,
+                });
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))   // test if the OS is linux or other
+            {
+                this.browser = await this.playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+                {
+                    Headless = true,
+                });
+            }
+```
+
+
+
 > type in pw: $env:HEADED=1
 > and then type dotnet test
 
