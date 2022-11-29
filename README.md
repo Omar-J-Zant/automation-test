@@ -1440,3 +1440,65 @@ namespace exactAutomationTest.StepDefinitions
 }
 
 ```
+
+
+## ScenarioContext :
+
+ScenarioContext is a static class that has a shared state during the execution of a scenario. It can be freely used as a dictionary by either storing an object of a specific type with or without specifying a string key. The ScenarioContext can be accessed by all the binding classes involved, so they can share the state.
+
+ScenarioContext provides many different features to use, which we will also cover in detail in the following chapters. In this post we will go through the usage of ScenarioContext.Current. Using the below statements data can be passed with in the different steps of the SpecFlow test.
+
+>Set a value ScenarioContext.Current.Add(string key, object value);
+
+>Get a value var value = ScenarioContext.Current.Get<Type>(string Key);
+
+```c#
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using TechTalk.SpecFlow;
+
+namespace SpecFlowDemo.Steps
+{
+    [Binding]
+    public sealed class ScenarioContextExample
+    {
+        [Given("I have entered (.*) into the calculator")]
+        public void GivenIHaveEnteredSomethingIntoTheCalculator(int number)
+        {
+            ScenarioContext.Current.Add("FirstNumber", number);
+        }
+
+        [Given(@"I also have entered (.*) into the calculator")]
+        public void GivenIAlsoHaveEnteredIntoTheCalculator(int number)
+        {
+            ScenarioContext.Current.Add("SecondNumber", number);
+        }
+
+        [When("I press add")]
+        public void WhenIPressAdd()
+        {
+            var firstNumber = ScenarioContext.Current.Get<int>("FirstNumber");
+            var secondNumber = ScenarioContext.Current.Get<int>("SecondNumber");
+            ScenarioContext.Current.Add("Result", firstNumber + secondNumber);
+        }
+
+        [Then("the result should be (.*) on the screen")]
+        public void ThenTheResultShouldBe(int result)
+        {
+            var actualResult = ScenarioContext.Current.Get<int>("Result");
+            if (!actualResult.Equals(result))
+            {
+                throw new Exception("Total is not correct");
+            }
+            Console.Out.WriteLine("Test Passed");
+        }
+    }
+}
+
+```
+
+
+
+
